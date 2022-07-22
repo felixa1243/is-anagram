@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Anagramdot</title>
+    <style type="text/css" media="all">
+    *{
+      box-sizing: border-box;
+      padding: 0;
+      margin:0;
+    }
+      body{
+     display: flex;
+     height: 100vh;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     gap:1rem;
+      }
+      p{
+        max-width: 60%;
+        margin: 1rem 0;
+      }
+      
+      form{
+        display: flex;
+        flex-direction: column;
+        width: 85%;
+        border:1px solid #dedede;
+        padding: 1.5em;
+        justify-content: center;
+        align-items: center;
+      }
+      label{
+        margin:.2rem 0;
+        align-self: flex-start;
+      }
+      input{
+        margin: .5rem auto;
+        padding: 1em;
+        width: 100%;
+        border:1px solid #dedede;
+        border-radius: 12em;
+      }
+      button{
+        padding: .5em;
+        width: 100%;
+        margin: .5em auto;
+        border: 1px solid #dedede;
+        border-radius: 12em;
+        background: #3043f4;
+        color: white;
+      }
+      @media screen and (min-width:768px){
+        h1{
+          font-size: 48px;
+        }
+        form{
+          width:800px;
+          font-size:36px;
+        }
+        input{
+          padding: .7em;
+          font-size: 24px;
+        }
+        button{
+          font-size: 36px;
+          padding: .3em;
+        }
+        p{
+          font-size: 22px;
+          text-align: justify;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!--Saya sambungkan html,css dan javascript agar tidak banyak file-->
+    
+    <h1 text-align="center">Anagramdot</h1>
+    <p text-align="justify">
+      
+   Anagram adalah sebuah fungsi dengan parameter angka kesatu dan kedua yang jika di susun sedemikian rupa akan membentuk kata yang sama, misalkan:
+     Sapi = apiS
+     Keju=Juek
+    </p>
+    
+      <form method="get" accept-charset="utf-8">
+        <label for="teks1">Teks 1</label>
+        <input type="text" id="teks1" placeholder="Masukan teks 1" autofocus required />
+        <label for="teks2">Teks 2</label>
+        <input type="text" name="" id="teks2" placeholder="Masukan teks 2" required />
+        <button type="submit">Cek</button>
+      <h4 class="hasil"></h4>
+      </form>
+    
+    <script type="text/javascript" charset="utf-8">
+      function anagram(str1,str2){
+  //deep copy
+          const a=JSON.parse(JSON.stringify(str1))
+            .toLowerCase()
+            .replace(/[^a-zA-Z0-9 ]/g, '')
+          const b=JSON.parse(JSON.stringify(str2))
+            .toLowerCase()
+            .replace(/[^a-zA-Z0-9 ]/g, '')
+  /*replace akan memfilter simbol dalam string*/
+  //imediate return jika size tidak sama
+            if(a.length!=b.length) return false
+  //fungsi buat mengurutkan string
+       function swap(x){
+    //definisi array
+           let array=[]
+     //iterasi terhadap string
+           for(let i=0;i<x.length;i++){
+      //masukan tiap karakter ke dalam array
+            array.push(x[i])
+      
+      //urutkan
+            array.sort()
+     }
+    //sambungkan array tanpa spasi
+    return array.join('')
+  }
+  //kondisi jika yang sudah di urutkan sama
+  if(swap(a)===swap(b)) return true;
+  //kondisi jika yang sudah di urutkan tidak sama
+  return false
+}
+    document.querySelector('form').addEventListener("submit",(e)=>{
+      e.preventDefault();
+      const teks1=document.querySelector('#teks1');
+      const teks2=document.querySelector('#teks2');
+      const msg=document.querySelector('.hasil');
+     
+      anagram(teks1.value,teks2.value)?
+      msg.innerHTML="Teks anagram":
+      msg.innerHTML="Teks bukan anagram"
+      
+    } );
+    
+    </script>
+  </body>
+</html>
